@@ -1,0 +1,110 @@
+@model Volunteer
+
+@{
+    ViewData["Title"] = "Deletar Voluntário";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-action="Index"><i class="bi bi-people"></i> Voluntários</a>
+        </li>
+        <li class="breadcrumb-item active">Deletar</li>
+    </ol>
+</nav>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card shadow-sm border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">
+                    <i class="bi bi-exclamation-triangle-fill"></i> Confirmar Exclusão
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <h5 class="alert-heading">
+                        <i class="bi bi-info-circle"></i> Atenção!
+                    </h5>
+                    <p class="mb-0">
+                        Você está prestes a deletar este voluntário. Esta ação <strong>não pode ser desfeita</strong>.
+                    </p>
+                </div>
+
+                <!-- Informações do Voluntário -->
+                <div class="text-center mb-4">
+                    <div class="avatar-circle-large bg-danger text-white mx-auto mb-3">
+                        @Model.FullName.Substring(0, 1).ToUpper()
+                    </div>
+                    <h3 class="fw-bold">@Model.FullName</h3>
+                    <p class="text-muted">
+                        <i class="bi bi-envelope"></i> @Model.Email
+                    </p>
+                </div>
+
+                <hr>
+
+                <!-- Detalhes Adicionais -->
+                <div class="mb-3">
+                    <h6 class="fw-bold text-muted">Informações Adicionais:</h6>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Oportunidades Inscritas
+                            <span class="badge bg-primary rounded-pill">
+                                @Model.VolunteerOpportunities.Count
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                @if (Model.VolunteerOpportunities.Any())
+                {
+                <div class="alert alert-danger">
+                    <h6 class="fw-bold">
+                        <i class="bi bi-exclamation-triangle"></i> Impacto da Exclusão:
+                    </h6>
+                    <ul class="mb-0">
+                        <li>O voluntário será removido de todas as @Model.VolunteerOpportunities.Count oportunidade(s)</li>
+                        <li>Todas as inscrições serão permanentemente deletadas</li>
+                    </ul>
+                </div>
+
+                <div class="card bg-light mb-3">
+                    <div class="card-body">
+                        <h6 class="card-title fw-bold">Oportunidades Afetadas:</h6>
+                        <ul class="list-unstyled mb-0">
+                            @foreach (var vo in Model.VolunteerOpportunities.Take(5))
+                                {
+                            <li class="mb-1">
+                                <i class="bi bi-calendar-x text-danger"></i>
+                                @vo.Opportunity?.Title
+                            </li>
+                                }
+                            @if (Model.VolunteerOpportunities.Count > 5)
+                                {
+                            <li class="text-muted">
+                                <i>+ @(Model.VolunteerOpportunities.Count - 5) mais...</i>
+                            </li>
+                                }
+                        </ul>
+                    </div>
+                </div>
+                }
+
+                <!-- Formulário de Confirmação -->
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-danger btn-lg">
+                            <i class="bi bi-trash"></i> Sim, Deletar Voluntário
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-x-circle"></i> Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

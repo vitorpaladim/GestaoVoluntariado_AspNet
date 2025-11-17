@@ -1,0 +1,158 @@
+@model Volunteer
+
+@{
+    ViewData["Title"] = "Detalhes do Voluntário";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a asp-action="Index"><i class="bi bi-people"></i> Voluntários</a>
+        </li>
+        <li class="breadcrumb-item active">@Model.FullName</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <!-- Informações do Voluntário -->
+    <div class="col-lg-4 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <div class="avatar-circle-large bg-primary text-white mx-auto mb-3">
+                    @Model.FullName.Substring(0, 1).ToUpper()
+                </div>
+                <h3 class="fw-bold mb-1">@Model.FullName</h3>
+                <p class="text-muted">
+                    <i class="bi bi-envelope"></i> @Model.Email
+                </p>
+                <hr>
+                <div class="d-grid gap-2">
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Voltar
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">
+                        <i class="bi bi-trash"></i> Deletar Voluntário
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estatísticas -->
+        <div class="card shadow-sm mt-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-bar-chart-fill text-info"></i> Estatísticas
+                </h5>
+                <div class="stat-box text-center">
+                    <h2 class="text-primary">@Model.VolunteerOpportunities.Count</h2>
+                    <p class="text-muted mb-0">Oportunidades Inscritas</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Oportunidades Inscritas -->
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-calendar-check"></i> Oportunidades Inscritas
+                </h5>
+            </div>
+            <div class="card-body">
+                @if (Model.VolunteerOpportunities.Any())
+                {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th><i class="bi bi-calendar-event"></i> Oportunidade</th>
+                                <th><i class="bi bi-building"></i> Organização</th>
+                                <th><i class="bi bi-calendar"></i> Data</th>
+                                <th><i class="bi bi-clock"></i> Inscrito em</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var vo in Model.VolunteerOpportunities.OrderByDescending(v => v.RegisteredAt))
+                                {
+                            <tr>
+                                <td class="fw-bold">@vo.Opportunity?.Title</td>
+                                <td>
+                                    <span class="badge bg-secondary">
+                                        @vo.Opportunity?.Organization?.Name
+                                    </span>
+                                </td>
+                                <td>
+                                    @if (vo.Opportunity?.Date > DateTime.Now)
+                                            {
+                                    <span class="badge bg-success">
+                                        @vo.Opportunity?.Date.ToString("dd/MM/yyyy")
+                                    </span>
+                                            }
+                                            else
+                                            {
+                                    <span class="badge bg-secondary">
+                                        @vo.Opportunity?.Date.ToString("dd/MM/yyyy")
+                                    </span>
+                                            }
+                                </td>
+                                <td class="text-muted small">
+                                    @vo.RegisteredAt.ToString("dd/MM/yyyy HH:mm")
+                                </td>
+                                <td>
+                                    <a asp-controller="Opportunities"
+                                       asp-action="Details"
+                                       asp-route-id="@vo.OpportunityId"
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> Ver
+                                    </a>
+                                </td>
+                            </tr>
+                                }
+                        </tbody>
+                    </table>
+                </div>
+                }
+                else
+                {
+                <div class="alert alert-info mb-0">
+                    <i class="bi bi-info-circle"></i>
+                    Este voluntário ainda não está inscrito em nenhuma oportunidade.
+                </div>
+                }
+            </div>
+        </div>
+
+        <!-- Timeline de Atividades (se houver inscrições) -->
+        @if (Model.VolunteerOpportunities.Any())
+        {
+        <div class="card shadow-sm mt-4">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">
+                    <i class="bi bi-clock-history"></i> Linha do Tempo
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="timeline">
+                    @foreach (var vo in Model.VolunteerOpportunities.OrderByDescending(v => v.RegisteredAt))
+                        {
+                    <div class="timeline-item">
+                        <div class="timeline-marker bg-primary"></div>
+                        <div class="timeline-content">
+                            <h6 class="fw-bold mb-1">Inscrito em @vo.Opportunity?.Title</h6>
+                            <p class="text-muted small mb-1">
+                                <i class="bi bi-building"></i> @vo.Opportunity?.Organization?.Name
+                            </p>
+                            <p class="text-muted small mb-0">
+                                <i class="bi bi-clock"></i> @vo.RegisteredAt.ToString("dd/MM/yyyy HH:mm")
+                            </p>
+                        </div>
+                    </div>
+                        }
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,297 @@
+/*
+ * Estilos Customizados para o MVP de Gestão de Voluntariado
+ * Baseado no wireframe fornecido, focado em um design limpo e moderno.
+ */
+
+/* Variáveis CSS */
+:root {
+    --color-primary: #000000;
+    --color-secondary: #333333;
+    --color-background: #ffffff;
+    --color-light-gray: #f8f8f8;
+    --color-text: #1a1a1a;
+    --color-link: #007bff;
+    --font-family-main: 'Arial', sans-serif; /* Placeholder, idealmente usar uma fonte moderna */
+    --spacing-unit: 1rem;
+}
+
+/* Reset Básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family-main);
+    color: var(--color-text);
+    background-color: var(--color-background);
+    line-height: 1.6;
+}
+
+/* Estrutura de Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-unit);
+}
+
+/* Header (Navegação) - Baseado no wireframe */
+.header {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--color-light-gray);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 0.5rem 0;
+    position: relative;
+}
+
+.nav-links a:hover {
+    color: var(--color-primary);
+}
+
+.nav-auth {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-auth .login-link {
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.nav-auth .register-button {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.nav-auth .register-button:hover {
+    background-color: var(--color-secondary);
+}
+
+/* Main Content */
+.main-content {
+    padding: 3rem 0;
+    min-height: 70vh; /* Garante que o footer fique na parte inferior */
+}
+
+/* Títulos e Tipografia */
+h1, h2, h3, h4 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+/* Footer */
+.footer {
+    padding: 2rem 0;
+    border-top: 1px solid var(--color-light-gray);
+    text-align: center;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* Estilos para Cards (Oportunidades) */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.card {
+    border: 1px solid var(--color-light-gray);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card-image {
+    width: 100%;
+    height: 200px;
+    background-color: var(--color-light-gray); /* Placeholder para imagem */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #ccc;
+}
+
+.card-content {
+    padding: 1.5rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-org {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.read-more {
+    display: inline-block;
+    color: var(--color-link);
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+/* Estilos para Formulários (Login/Registro/Admin) */
+.form-container {
+    max-width: 400px;
+    margin: 3rem auto;
+    padding: 2rem;
+    border: 1px solid var(--color-light-gray);
+    border-radius: 8px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-secondary);
+}
+
+/* Estilos de erro de validação */
+.text-danger {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}
+
+/* Estilos para a página de detalhes */
+.opportunity-details {
+    padding: 2rem 0;
+}
+
+.opportunity-details h1 {
+    margin-bottom: 0.5rem;
+}
+
+.opportunity-details .organization-name {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.opportunity-details .description {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.opportunity-details .register-section {
+    padding: 1.5rem;
+    border: 1px solid var(--color-light-gray);
+    border-radius: 8px;
+    background-color: var(--color-light-gray);
+}
+
+/* Adaptações para o tema de Voluntariado */
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    font-weight: 800;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+}
+
+/* Estilo para o botão de "Request Access" no wireframe */
+.request-access-button {
+    background-color: transparent;
+    color: var(--color-primary);
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--color-primary);
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.request-access-button:hover {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+}

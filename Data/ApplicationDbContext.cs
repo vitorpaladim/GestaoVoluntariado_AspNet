@@ -41,6 +41,10 @@ namespace GestaoVoluntariado.Data
                 .WithMany(org => org.Opportunities)
                 .HasForeignKey(o => o.OrganizationId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Volunteer>()
+                .HasIndex(v => v.Email)
+                .IsUnique();
         }
     }
 }
