@@ -1,0 +1,40 @@
+@model IEnumerable<Organization>
+
+@{
+    ViewData["Title"] = "Organizações";
+}
+
+<h1>Organizações</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Criar Nova Organização</a>
+</p>
+
+@if (Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nenhuma organização encontrada. <a asp-action="Create">Criar uma nova</a>.</p>
+}

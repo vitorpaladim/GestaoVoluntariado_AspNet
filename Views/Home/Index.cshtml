@@ -1,0 +1,41 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bem-vindo à Gestão de Voluntariado</h1>
+    <p>Uma plataforma simples para gerenciar organizações, oportunidades de voluntariado e voluntários.</p>
+    
+    <div class="mt-4">
+        <h3>Comece agora:</h3>
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Organizações</h5>
+                        <p class="card-text">Crie e gerencie suas organizações.</p>
+                        <a href="@Url.Action("Index", "Organizations")" class="btn btn-primary">Ir para Organizações</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Oportunidades</h5>
+                        <p class="card-text">Crie e visualize oportunidades de voluntariado.</p>
+                        <a href="@Url.Action("Index", "Opportunities")" class="btn btn-primary">Ir para Oportunidades</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Inscrever-se</h5>
+                        <p class="card-text">Inscreva-se em oportunidades de voluntariado.</p>
+                        <a href="@Url.Action("Index", "Opportunities")" class="btn btn-primary">Ver Oportunidades</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

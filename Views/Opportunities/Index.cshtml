@@ -1,0 +1,42 @@
+@model IEnumerable<Opportunity>
+
+@{
+    ViewData["Title"] = "Oportunidades";
+}
+
+<h1>Oportunidades de Voluntariado</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Criar Nova Oportunidade</a>
+</p>
+
+@if (Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Organização</th>
+                <th>Data</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Organization?.Name</td>
+                    <td>@item.Date.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalhes</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nenhuma oportunidade encontrada. <a asp-action="Create">Criar uma nova</a>.</p>
+}
