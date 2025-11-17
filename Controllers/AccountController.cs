@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using GestaoVoluntariado.ViewModels; // <-- ADICIONADO
 
 namespace GestaoVoluntariado.Controllers
 {
@@ -10,25 +11,25 @@ namespace GestaoVoluntariado.Controllers
         // GET: Account/Login
         public IActionResult Login()
         {
-            return View();
+            return View(new LoginViewModel()); // <-- MODIFICADO
         }
 
         // POST: Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(string email)
+        public async Task<IActionResult> Login(LoginViewModel model) // <-- MODIFICADO
         {
-            if (string.IsNullOrEmpty(email))
+            // MODIFICADO: Trocamos o 'if' antigo por este
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("email", "Email é obrigatório.");
-                return View();
+                return View(model); // Retorna o modelo para mostrar os erros de validação
             }
 
             // Simple authentication: create claims for the user
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email, email),
-                new Claim(ClaimTypes.Name, email)
+                new Claim(ClaimTypes.Email, model.Email), // <-- MODIFICADO (usando model.Email)
+                new Claim(ClaimTypes.Name, model.Email)  // <-- MODIFICADO (usando model.Email)
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
