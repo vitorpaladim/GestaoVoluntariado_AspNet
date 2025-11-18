@@ -3,26 +3,37 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="card-title text-center mb-4">Login</h3>
+<div class="login-container">
+    <div class="login-card card">
+        <div class="card-body">
+            <h3 class="card-title">
+                <i class="fas fa-sign-in-alt me-2"></i>Entrar na Plataforma
+            </h3>
 
-                <form asp-action="Login" method="post">
+            <form asp-action="Login" method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    <span>Ocorreu um erro ao fazer login. Verifique suas credenciais.</span>
+                </div>
 
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email" class="form-label">
+                        <i class="fas fa-envelope me-2"></i>Email
+                    </label>
+                    <input asp-for="Email" class="form-control" placeholder="seu@email.com" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
 
-                    <div class="mb-3">
-                        <label asp-for="Email" class="form-label"></label>
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
+                <button type="submit" class="btn btn-primary w-100 mt-4">
+                    <i class="fas fa-sign-in-alt me-2"></i>Entrar
+                </button>
+            </form>
 
-                    <button type="submit" class="btn btn-primary w-100">Entrar</button>
+            <hr class="my-4">
 
-                </form>
-            </div>
+            <p class="text-center text-muted mb-0">
+                <small>Não tem uma conta? <a asp-area="" asp-controller="Home" asp-action="Index">Voltar para Home</a></small>
+            </p>
         </div>
     </div>
 </div>

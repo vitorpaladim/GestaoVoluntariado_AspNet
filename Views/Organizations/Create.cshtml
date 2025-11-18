@@ -4,28 +4,44 @@
     ViewData["Title"] = "Criar Organização";
 }
 
-<h1>Criar Organização</h1>
+<div class="form-container">
+    <div class="form-section">
+        <h1 class="mb-4">
+            <i class="fas fa-plus-circle me-2" style="color: #2563eb;"></i>Criar Nova Organização
+        </h1>
 
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <div class="mb-3">
-                <label asp-for="Name" class="form-label"></label>
-                <input asp-for="Name" class="form-control" />
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <span>Ocorreu um erro ao criar a organização. Verifique os campos abaixo.</span>
+            </div>
+
+            <!-- Nome -->
+            <div class="form-group">
+                <label asp-for="Name" class="form-label">
+                    <i class="fas fa-heading me-2"></i>Nome da Organização
+                </label>
+                <input asp-for="Name" class="form-control" placeholder="Ex: ONG Esperança" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            
-            <div class="mb-3">
-                <label asp-for="Description" class="form-label"></label>
-                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+
+            <!-- Descrição -->
+            <div class="form-group">
+                <label asp-for="Description" class="form-label">
+                    <i class="fas fa-align-left me-2"></i>Descrição
+                </label>
+                <textarea asp-for="Description" class="form-control" rows="5" placeholder="Descreva sua organização..."></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            
-            <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Criar</button>
-                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+
+            <!-- Botões de Ação -->
+            <div class="form-actions">
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-times me-2"></i>Cancelar
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-2"></i>Criar Organização
+                </button>
             </div>
         </form>
     </div>

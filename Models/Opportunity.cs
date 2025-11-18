@@ -10,7 +10,7 @@ namespace GestaoVoluntariado.Models
         public string Description { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Data é obrigatória")]
-        [FutureDate(ErrorMessage = "A data da oportunidade deve ser futura")] // ← Funciona direto
+        [FutureDate(ErrorMessage = "A data da oportunidade deve ser futura")] 
         public DateTime Date { get; set; }
 
         [Required(ErrorMessage = "Organização é obrigatória")]

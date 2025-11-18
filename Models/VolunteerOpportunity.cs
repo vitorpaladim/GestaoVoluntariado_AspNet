@@ -6,7 +6,7 @@ namespace GestaoVoluntariado.Models
         public int OpportunityId { get; set; }
         public DateTime RegisteredAt { get; set; } = DateTime.Now;
 
-        // Navigation properties
+  
         public Volunteer? Volunteer { get; set; }
         public Opportunity? Opportunity { get; set; }
     }
