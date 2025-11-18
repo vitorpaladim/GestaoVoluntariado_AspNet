@@ -1,0 +1,101 @@
+@model RegisterONGViewModel
+
+@{
+    ViewData["Title"] = "Registrar como ONG";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-body p-5">
+                <h2 class="card-title mb-4 text-center">
+                    Registrar como ONG
+                </h2>
+
+                <form method="post" asp-action="RegisterONG" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="NomeONG" class="form-label">Nome da ONG</label>
+                            <input asp-for="NomeONG" class="form-control" placeholder="Nome da sua organização" />
+                            <span asp-validation-for="NomeONG" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Email" class="form-label">Email</label>
+                            <input asp-for="Email" class="form-control" placeholder="contato@ong.com" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Telefone" class="form-label">Telefone</label>
+                            <input asp-for="Telefone" class="form-control" placeholder="(11) 99999-9999" />
+                            <span asp-validation-for="Telefone" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Endereco" class="form-label">Endereço</label>
+                            <input asp-for="Endereco" class="form-control" placeholder="Rua, número, cidade" />
+                            <span asp-validation-for="Endereco" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Descricao" class="form-label">Descrição da ONG</label>
+                        <textarea asp-for="Descricao" class="form-control" rows="3" placeholder="Descreva sua organização..."></textarea>
+                        <span asp-validation-for="Descricao" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Documento" class="form-label">Documento da ONG (PDF)</label>
+                        <input asp-for="Documento" class="form-control" type="file" accept=".pdf" />
+                        <span asp-validation-for="Documento" class="text-danger small"></span>
+                        <small class="text-muted">Envie um documento que comprove a existência da ONG (CNPJ, estatuto, etc.)</small>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Senha" class="form-label">Senha</label>
+                            <input asp-for="Senha" class="form-control" type="password" placeholder="Mínimo 6 caracteres" />
+                            <span asp-validation-for="Senha" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="ConfirmaSenha" class="form-label">Confirmar Senha</label>
+                            <input asp-for="ConfirmaSenha" class="form-control" type="password" placeholder="Confirme sua senha" />
+                            <span asp-validation-for="ConfirmaSenha" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="AdminCode" class="form-label">Código de Validação (Opcional)</label>
+                        <input asp-for="AdminCode" class="form-control" placeholder="Se tiver, digite o código para validação automática" />
+                        <small class="text-muted">Deixe em branco se não tiver. Sua ONG será validada pelo administrador.</small>
+                    </div>
+
+                    <div class="alert alert-info" role="alert">
+                        
+                        <strong>Nota:</strong> Se você inserir o código de validação correto, sua ONG será validada automaticamente. Caso contrário, aguardará aprovação do administrador.
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mb-3">
+                        Registrar ONG
+                    </button>
+                </form>
+
+                <hr />
+
+                <p class="text-center mb-0">
+                    Já tem conta? <a href="@Url.Action("Login", "Account")" class="text-decoration-none">Faça login aqui</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

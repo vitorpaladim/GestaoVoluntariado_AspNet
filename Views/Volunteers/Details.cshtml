@@ -13,7 +13,7 @@
         <div>
             <h1 class="mb-0">@Model.FullName</h1>
             <p class="text-muted mb-0">
-                <i class="fas fa-envelope me-2"></i>@Model.Email
+                @Model.Email
             </p>
         </div>
     </div>
@@ -25,7 +25,7 @@
         <div class="card mb-4">
             <div class="card-header">
                 <h5 class="card-title mb-0">
-                    <i class="fas fa-info-circle me-2"></i>Informações do Voluntário
+                    Informações do Voluntário
                 </h5>
             </div>
             <div class="card-body">
@@ -33,14 +33,14 @@
                     <div class="col-md-6">
                         <p class="mb-3">
                             <strong>Nome Completo:</strong><br>
-                            <i class="fas fa-user me-2"></i>
+                            
                             @Model.FullName
                         </p>
                     </div>
                     <div class="col-md-6">
                         <p class="mb-3">
                             <strong>Email:</strong><br>
-                            <i class="fas fa-envelope me-2"></i>
+                            
                             <a href="mailto:@Model.Email">@Model.Email</a>
                         </p>
                     </div>
@@ -52,7 +52,7 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title mb-0">
-                    <i class="fas fa-briefcase me-2"></i>Oportunidades Inscritas (@Model.VolunteerOpportunities.Count)
+                    Oportunidades Inscritas (@Model.VolunteerOpportunities.Count)
                 </h5>
             </div>
             <div class="card-body">
@@ -63,16 +63,16 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        <i class="fas fa-briefcase me-2"></i>Oportunidade
+                                        Oportunidade
                                     </th>
                                     <th>
-                                        <i class="fas fa-building me-2"></i>Organização
+                                        Organização
                                     </th>
                                     <th>
-                                        <i class="fas fa-calendar me-2"></i>Data
+                                        Data
                                     </th>
                                     <th>
-                                        <i class="fas fa-clock me-2"></i>Inscrição
+                                        Inscrição
                                     </th>
                                 </tr>
                             </thead>
@@ -101,7 +101,7 @@
                 else
                 {
                     <div class="empty-state py-4">
-                        <i class="fas fa-inbox"></i>
+                        
                         <p class="mt-2">Este voluntário ainda não se inscreveu em nenhuma oportunidade.</p>
                     </div>
                 }
@@ -114,16 +114,16 @@
         <div class="card sticky-top" style="top: 80px;">
             <div class="card-header">
                 <h5 class="card-title mb-0">
-                    <i class="fas fa-cog me-2"></i>Ações
+                    Ações
                 </h5>
             </div>
             <div class="card-body">
                 <div class="d-grid gap-2">
                     <a href="mailto:@Model.Email" class="btn btn-primary">
-                        <i class="fas fa-envelope me-2"></i>Enviar Email
+                        Enviar Email
                     </a>
                     <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
-                        <i class="fas fa-trash me-2"></i>Deletar Voluntário
+                        Deletar Voluntário
                     </a>
                 </div>
 
@@ -141,6 +141,6 @@
 <!-- Botão Voltar -->
 <div class="details-actions mt-4">
     <a asp-action="Index" class="btn btn-secondary">
-        <i class="fas fa-arrow-left me-2"></i>Voltar para Voluntários
+        Voltar para Voluntários
     </a>
 </div>

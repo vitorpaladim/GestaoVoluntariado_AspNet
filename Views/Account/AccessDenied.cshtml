@@ -1,0 +1,20 @@
+@{
+    ViewData["Title"] = "Acesso Negado";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow border-danger">
+            <div class="card-body p-5 text-center">
+                
+                <h2 class="card-title mt-3 mb-3">Acesso Negado</h2>
+                <p class="card-text text-muted mb-4">
+                    Você não tem permissão para acessar esta página.
+                </p>
+                <a href="@Url.Action("Index", "Home")" class="btn btn-primary">
+                    Voltar para Home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

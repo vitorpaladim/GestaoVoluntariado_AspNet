@@ -1,0 +1,106 @@
+@model List<Candidatura>
+
+@{
+    ViewData["Title"] = "Candidatos";
+    var projeto = ViewBag.Projeto as Projeto;
+}
+
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2 class="mb-0">
+            Candidatos - @projeto?.Titulo
+        </h2>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="@Url.Action("Dashboard")" class="btn btn-secondary">
+            Voltar
+        </a>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <h6>Informações do Projeto</h6>
+        <p class="mb-0">
+            <strong>Data:</strong> @projeto?.Data.ToString("dd/MM/yyyy")
+        </p>
+        <p class="mb-0">
+            <strong>Vagas:</strong> @projeto?.TotalVagas
+        </p>
+        <p class="mb-0">
+            <strong>Categoria:</strong> @projeto?.Categoria
+        </p>
+    </div>
+</div>
+
+@if (Model != null && Model.Count > 0)
+{
+    <div class="table-responsive">
+        <table class="table table-hover shadow-sm">
+            <thead class="table-light">
+                <tr>
+                    <th>Voluntário</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Data da Candidatura</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var candidatura in Model)
+                {
+                    <tr>
+                        <td>
+                            <strong>@candidatura.Voluntario?.Nome</strong>
+                        </td>
+                        <td>@candidatura.Voluntario?.Email</td>
+                        <td>@candidatura.Voluntario?.Telefone</td>
+                        <td>@candidatura.DataCandidatura.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @if (candidatura.Status == "Aceita")
+                            {
+                                <span class="badge bg-success">Aceita</span>
+                            }
+                            else if (candidatura.Status == "Recusada")
+                            {
+                                <span class="badge bg-danger">Recusada</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning">Pendente</span>
+                            }
+                        </td>
+                        <td>
+                            @if (candidatura.Status == "Pendente")
+                            {
+                                <form method="post" asp-action="AceitarCandidato" asp-route-id="@candidatura.Id" style="display: inline;">
+                                    <button type="submit" class="btn btn-sm btn-success" title="Aceitar">
+                                        Aceitar
+                                    </button>
+                                </form>
+                                <form method="post" asp-action="RecusarCandidato" asp-route-id="@candidatura.Id" style="display: inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Recusar">
+                                        Recusar
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="text-muted small">Decisão já tomada</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-info text-center py-5" role="alert">
+        <br />
+        <strong>Nenhum candidato ainda</strong><br />
+        Aguarde candidaturas de voluntários para este projeto.
+    </div>
+}

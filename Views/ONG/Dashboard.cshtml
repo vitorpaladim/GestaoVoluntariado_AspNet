@@ -1,0 +1,118 @@
+@model ONG
+
+@{
+    ViewData["Title"] = "Dashboard - ONG";
+}
+
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2 class="mb-0">
+            Dashboard da ONG
+        </h2>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="@Url.Action("CriarProjeto")" class="btn btn-primary">
+            Novo Projeto
+        </a>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5 class="card-title">@Model.NomeONG</h5>
+                <p class="text-muted">@Model.Descricao</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>
+                            <strong>Telefone:</strong> @Model.Telefone
+                        </p>
+                        <p>
+                            <strong>Email:</strong> @Model.Email
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <strong>Endereço:</strong> @Model.Endereco
+                        </p>
+                        <p>
+                            
+                            <strong>Status:</strong>
+                            @if (Model.Status == "Validada")
+                            {
+                                <span class="badge bg-success">Validada</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning">Pendente</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 class="mb-3">
+    Meus Projetos
+</h3>
+
+@{
+    var projetos = ViewBag.Projetos as List<Projeto>;
+    if (projetos != null && projetos.Count > 0)
+    {
+        <div class="table-responsive">
+            <table class="table table-hover shadow-sm">
+                <thead class="table-light">
+                    <tr>
+                        <th>Título</th>
+                        <th>Categoria</th>
+                        <th>Data</th>
+                        <th>Vagas</th>
+                        <th>Candidatos</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var projeto in projetos)
+                    {
+                        <tr>
+                            <td>@projeto.Titulo</td>
+                            <td>@projeto.Categoria</td>
+                            <td>@projeto.Data.ToString("dd/MM/yyyy")</td>
+                            <td>@projeto.TotalVagas</td>
+                            <td>
+                                <span class="badge bg-info">@projeto.Candidaturas.Count</span>
+                            </td>
+                            <td>
+                                <a href="@Url.Action("ListaCandidatos", new { id = projeto.Id })" class="btn btn-sm btn-info" title="Ver candidatos">
+                                    Candidatos
+                                </a>
+                                <a href="@Url.Action("EditarProjeto", new { id = projeto.Id })" class="btn btn-sm btn-warning" title="Editar">
+                                    Editar
+                                </a>
+                                <form method="post" asp-action="DeletarProjeto" asp-route-id="@projeto.Id" style="display: inline;" onsubmit="return confirm('Tem certeza que deseja deletar este projeto?');">
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Deletar">
+                                        Deletar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center py-5" role="alert">
+            <br />
+            <strong>Nenhum projeto criado ainda</strong><br />
+            <a href="@Url.Action("CriarProjeto")" class="btn btn-primary mt-3">
+                Criar Primeiro Projeto
+            </a>
+        </div>
+    }
+}

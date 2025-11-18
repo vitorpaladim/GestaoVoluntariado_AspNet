@@ -1,0 +1,86 @@
+@model Projeto
+
+@{
+    ViewData["Title"] = "Editar Projeto";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-warning text-dark">
+                <h4 class="mb-0">
+                    Editar Projeto
+                </h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="post" asp-action="EditarProjeto" asp-route-id="@Model.Id">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Titulo" class="form-label">Título do Projeto</label>
+                        <input asp-for="Titulo" class="form-control" />
+                        <span asp-validation-for="Titulo" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Descricao" class="form-label">Descrição</label>
+                        <textarea asp-for="Descricao" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Descricao" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Categoria" class="form-label">Categoria</label>
+                            <select asp-for="Categoria" class="form-select">
+                                <option value="">Selecione uma categoria</option>
+                                <option value="Proteção Animal">Proteção Animal</option>
+                                <option value="Meio Ambiente">Meio Ambiente</option>
+                                <option value="Equidade Racial">Equidade Racial</option>
+                                <option value="LGBTQIAPN+">LGBTQIAPN+</option>
+                                <option value="Mulheres">Mulheres</option>
+                                <option value="Família Voluntária">Família Voluntária</option>
+                                <option value="Online">Online</option>
+                                <option value="Pontuais">Pontuais</option>
+                                <option value="RJ">RJ</option>
+                            </select>
+                            <span asp-validation-for="Categoria" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Endereco" class="form-label">Endereço</label>
+                            <input asp-for="Endereco" class="form-control" />
+                            <span asp-validation-for="Endereco" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Data" class="form-label">Data do Projeto</label>
+                            <input asp-for="Data" class="form-control" type="datetime-local" />
+                            <span asp-validation-for="Data" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="TotalVagas" class="form-label">Total de Vagas</label>
+                            <input asp-for="TotalVagas" class="form-control" type="number" min="1" />
+                            <span asp-validation-for="TotalVagas" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="@Url.Action("Dashboard")" class="btn btn-secondary">
+                            Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-warning">
+                            Salvar Alterações
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

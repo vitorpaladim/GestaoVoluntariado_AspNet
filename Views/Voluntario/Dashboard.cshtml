@@ -1,0 +1,116 @@
+@model Voluntario
+
+@{
+    ViewData["Title"] = "Dashboard - Voluntário";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card shadow mb-4">
+            <div class="card-body text-center">
+                @if (!string.IsNullOrEmpty(Model.FotoPath))
+                {
+                    <img src="@Model.FotoPath" alt="Foto" class="rounded-circle mb-3" style="width: 100px; height: 100px; object-fit: cover;" />
+                }
+                else
+                {
+                    
+                }
+                <h4>@Model.Nome</h4>
+                <p class="text-muted">@Model.Email</p>
+                <p class="text-muted">@Model.Telefone</p>
+                <a href="@Url.Action("EditPerfil")" class="btn btn-primary btn-sm w-100">
+                    Editar Perfil
+                </a>
+            </div>
+        </div>
+
+        <div class="card shadow">
+            <div class="card-body">
+                <h5 class="card-title">
+                    Currículo
+                </h5>
+                @if (!string.IsNullOrEmpty(Model.CurriculoPath))
+                {
+                    <a href="@Model.CurriculoPath" target="_blank" class="btn btn-sm btn-outline-primary w-100">
+                        Baixar Currículo
+                    </a>
+                }
+                else
+                {
+                    <p class="text-muted small">Nenhum currículo enviado</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    Minhas Candidaturas
+                </h5>
+            </div>
+            <div class="card-body">
+                @{
+                    var candidaturas = ViewBag.Candidaturas as List<Candidatura>;
+                    if (candidaturas != null && candidaturas.Count > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Projeto</th>
+                                        <th>ONG</th>
+                                        <th>Status</th>
+                                        <th>Data</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var candidatura in candidaturas)
+                                    {
+                                        <tr>
+                                            <td>@candidatura.Projeto?.Titulo</td>
+                                            <td>@candidatura.Projeto?.ONG?.NomeONG</td>
+                                            <td>
+                                                @if (candidatura.Status == "Aceita")
+                                                {
+                                                    <span class="badge bg-success">Aceita</span>
+                                                }
+                                                else if (candidatura.Status == "Recusada")
+                                                {
+                                                    <span class="badge bg-danger">Recusada</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-warning">Pendente</span>
+                                                }
+                                            </td>
+                                            <td>@candidatura.DataCandidatura.ToString("dd/MM/yyyy")</td>
+                                            <td>
+                                                <a href="@Url.Action("DetalhesProjeto", new { id = candidatura.ProjetoId })" class="btn btn-sm btn-outline-primary">
+                                                    Ver
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center py-4">
+                            <br />
+                            Você ainda não se candidatou para nenhum projeto.
+                        </p>
+                        <a href="@Url.Action("ListaProjetos")" class="btn btn-primary w-100">
+                            Explorar Projetos
+                        </a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

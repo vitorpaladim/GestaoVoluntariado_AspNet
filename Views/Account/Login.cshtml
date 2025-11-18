@@ -1,39 +1,51 @@
-@model GestaoVoluntariado.ViewModels.LoginViewModel
+@model LoginViewModel
+
 @{
     ViewData["Title"] = "Login";
 }
 
-<div class="login-container">
-    <div class="login-card card">
-        <div class="card-body">
-            <h3 class="card-title">
-                <i class="fas fa-sign-in-alt me-2"></i>Entrar na Plataforma
-            </h3>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-body p-5">
+                <h2 class="card-title mb-4 text-center">
+                    Login
+                </h2>
 
-            <form asp-action="Login" method="post">
-                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert">
-                    <i class="fas fa-exclamation-circle me-2"></i>
-                    <span>Ocorreu um erro ao fazer login. Verifique suas credenciais.</span>
-                </div>
+                <form method="post" asp-action="Login">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
-                <div class="form-group">
-                    <label asp-for="Email" class="form-label">
-                        <i class="fas fa-envelope me-2"></i>Email
-                    </label>
-                    <input asp-for="Email" class="form-control" placeholder="seu@email.com" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">Email</label>
+                        <input asp-for="Email" class="form-control" placeholder="seu@email.com" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
 
-                <button type="submit" class="btn btn-primary w-100 mt-4">
-                    <i class="fas fa-sign-in-alt me-2"></i>Entrar
-                </button>
-            </form>
+                    <div class="mb-3">
+                        <label asp-for="Senha" class="form-label">Senha</label>
+                        <input asp-for="Senha" class="form-control" type="password" placeholder="Sua senha" />
+                        <span asp-validation-for="Senha" class="text-danger small"></span>
+                    </div>
 
-            <hr class="my-4">
+                    <div class="mb-3 form-check">
+                        <input asp-for="LembrarMe" class="form-check-input" type="checkbox" />
+                        <label asp-for="LembrarMe" class="form-check-label">Lembrar-me</label>
+                    </div>
 
-            <p class="text-center text-muted mb-0">
-                <small>Não tem uma conta? <a asp-area="" asp-controller="Home" asp-action="Index">Voltar para Home</a></small>
-            </p>
+                    <button type="submit" class="btn btn-primary w-100 mb-3">
+                        Entrar
+                    </button>
+                </form>
+
+                <hr />
+
+                <p class="text-center mb-0">
+                    Não tem conta? 
+                    <a href="@Url.Action("RegisterVoluntario", "Account")" class="text-decoration-none">Registre-se como Voluntário</a>
+                    ou 
+                    <a href="@Url.Action("RegisterONG", "Account")" class="text-decoration-none">como ONG</a>
+                </p>
+            </div>
         </div>
     </div>
 </div>

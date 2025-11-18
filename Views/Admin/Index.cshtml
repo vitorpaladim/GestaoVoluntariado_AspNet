@@ -1,0 +1,131 @@
+@{
+    ViewData["Title"] = "Painel de Administração";
+}
+
+<h2 class="mb-4">
+    Painel de Administração
+</h2>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                    ONGs Pendentes de Validação
+                </h5>
+            </div>
+            <div class="card-body">
+                @{
+                    var ongsNaoValidadas = ViewBag.ONGsNaoValidadas as List<ONG>;
+                    if (ongsNaoValidadas != null && ongsNaoValidadas.Count > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var ong in ongsNaoValidadas)
+                                    {
+                                        <tr>
+                                            <td>@ong.NomeONG</td>
+                                            <td>@ong.Email</td>
+                                            <td>
+                                                <form method="post" asp-action="ValidarONG" asp-route-id="@ong.Id" style="display: inline;">
+                                                    <button type="submit" class="btn btn-sm btn-success" title="Validar">
+                                                        Validar
+                                                    </button>
+                                                </form>
+                                                <form method="post" asp-action="RejeitarONG" asp-route-id="@ong.Id" style="display: inline;" onsubmit="return confirm('Tem certeza que deseja rejeitar esta ONG?');">
+                                                    <button type="submit" class="btn btn-sm btn-danger" title="Rejeitar">
+                                                        Rejeitar
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center py-3">
+                            Nenhuma ONG pendente de validação
+                        </p>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    ONGs Validadas
+                </h5>
+            </div>
+            <div class="card-body">
+                @{
+                    var ongsValidadas = ViewBag.ONGsValidadas as List<ONG>;
+                    if (ongsValidadas != null && ongsValidadas.Count > 0)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var ong in ongsValidadas)
+                                    {
+                                        <tr>
+                                            <td>@ong.NomeONG</td>
+                                            <td>@ong.Email</td>
+                                            <td>
+                                                <span class="badge bg-success">Validada</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center py-3">
+                            Nenhuma ONG validada ainda
+                        </p>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow">
+    <div class="card-header bg-info text-white">
+        <h5 class="mb-0">
+            Código de Validação
+        </h5>
+    </div>
+    <div class="card-body">
+        <p class="mb-2">
+            <strong>Código para validação automática de ONGs:</strong>
+        </p>
+        <div class="alert alert-warning" role="alert">
+            <code style="font-size: 1.2rem;">gestaomaster</code>
+        </div>
+        <p class="text-muted small">
+            Compartilhe este código com ONGs que deseja validar automaticamente durante o registro.
+        </p>
+    </div>
+</div>

@@ -7,12 +7,12 @@
 <div class="form-container">
     <div class="form-section">
         <div class="alert alert-danger" role="alert">
-            <i class="fas fa-exclamation-triangle me-2"></i>
+            
             <strong>Atenção!</strong> Esta ação não pode ser desfeita.
         </div>
 
         <h1 class="mb-4">
-            <i class="fas fa-trash me-2" style="color: #ef4444;"></i>Deletar Voluntário
+            Deletar Voluntário
         </h1>
 
         <p class="text-muted mb-4">Tem certeza que deseja deletar este voluntário? Todos os dados associados serão perdidos.</p>
@@ -20,27 +20,27 @@
         <div class="card border-danger mb-4">
             <div class="card-header bg-light">
                 <h5 class="card-title mb-0">
-                    <i class="fas fa-user me-2"></i>@Model.FullName
+                    @Model.FullName
                 </h5>
             </div>
             <div class="card-body">
                 <dl class="row">
                     <dt class="col-sm-3">
-                        <i class="fas fa-user me-2"></i>Nome Completo
+                        Nome Completo
                     </dt>
                     <dd class="col-sm-9">
                         <strong>@Model.FullName</strong>
                     </dd>
 
                     <dt class="col-sm-3">
-                        <i class="fas fa-envelope me-2"></i>Email
+                        Email
                     </dt>
                     <dd class="col-sm-9">
                         <a href="mailto:@Model.Email">@Model.Email</a>
                     </dd>
 
                     <dt class="col-sm-3">
-                        <i class="fas fa-briefcase me-2"></i>Inscrições
+                        Inscrições
                     </dt>
                     <dd class="col-sm-9">
                         <span class="badge bg-info">@Model.VolunteerOpportunities.Count oportunidade(s)</span>
@@ -54,10 +54,10 @@
 
             <div class="form-actions">
                 <a asp-action="Index" class="btn btn-secondary">
-                    <i class="fas fa-times me-2"></i>Cancelar
+                    Cancelar
                 </a>
                 <button type="submit" class="btn btn-danger">
-                    <i class="fas fa-trash me-2"></i>Confirmar Deleção
+                    Confirmar Deleção
                 </button>
             </div>
         </form>

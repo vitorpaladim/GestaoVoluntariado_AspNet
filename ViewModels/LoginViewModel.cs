@@ -1,11 +1,18 @@
-using System.ComponentModel.DataAnnotations; // Necess·rio para [Required]
+using System.ComponentModel.DataAnnotations;
 
-namespace GestaoVoluntariado.ViewModels // Verifique se o namespace È o nome do seu projeto
+namespace GestaoVoluntariado.ViewModels
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "O email È obrigatÛrio.")]
-        [EmailAddress(ErrorMessage = "Email inv·lido.")]
+        [Required(ErrorMessage = "Email √© obrigat√≥rio")]
+        [EmailAddress(ErrorMessage = "Email inv√°lido")]
         public string Email { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Senha √© obrigat√≥ria")]
+        [DataType(DataType.Password)]
+        public string Senha { get; set; } = string.Empty;
+
+        [Display(Name = "Lembrar-me")]
+        public bool LembrarMe { get; set; }
     }
 }

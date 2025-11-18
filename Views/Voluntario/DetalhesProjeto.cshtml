@@ -1,0 +1,117 @@
+@model Projeto
+
+@{
+    ViewData["Title"] = "Detalhes do Projeto";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <h2 class="card-title mb-3">@Model.Titulo</h2>
+                
+                <div class="mb-3">
+                    <span class="badge bg-primary">@Model.Categoria</span>
+                    <span class="badge bg-secondary">@Model.Endereco</span>
+                </div>
+
+                <h5 class="mt-4 mb-2">Descrição</h5>
+                <p class="text-muted">@Model.Descricao</p>
+
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h6>Data do Projeto</h6>
+                        <p>
+                            @Model.Data.ToString("dd/MM/yyyy")
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Vagas Disponíveis</h6>
+                        <p>
+                            @Model.TotalVagas vagas
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h6>Visualizações</h6>
+                        <p>
+                            @Model.Views visualizações
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    Organização Responsável
+                </h5>
+            </div>
+            <div class="card-body">
+                <h6>@Model.ONG?.NomeONG</h6>
+                <p class="text-muted">@Model.ONG?.Descricao</p>
+                <p>
+                    @Model.ONG?.Telefone
+                </p>
+                <p>
+                    @Model.ONG?.Email
+                </p>
+                <p>
+                    @Model.ONG?.Endereco
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    Candidatura
+                </h5>
+            </div>
+            <div class="card-body">
+                @if (ViewBag.JaCandidatou)
+                {
+                    <div class="alert alert-info" role="alert">
+                        
+                        Você já se candidatou para este projeto!
+                    </div>
+                    <a href="@Url.Action("Dashboard")" class="btn btn-secondary w-100">
+                        Voltar
+                    </a>
+                }
+                else
+                {
+                    <p class="text-muted mb-3">
+                        Clique no botão abaixo para se candidatar a este projeto.
+                    </p>
+                    <form method="post" asp-action="Candidatar" asp-route-id="@Model.Id">
+                        <button type="submit" class="btn btn-success w-100 mb-2">
+                            Candidatar-se
+                        </button>
+                    </form>
+                    <a href="@Url.Action("ListaProjetos")" class="btn btn-secondary w-100">
+                        Voltar
+                    </a>
+                }
+            </div>
+        </div>
+
+        <div class="card shadow mt-3">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    Informações
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted small mb-0">
+                    <strong>Status:</strong> Aberto para candidaturas
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

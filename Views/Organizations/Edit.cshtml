@@ -7,12 +7,12 @@
 <div class="form-container">
     <div class="form-section">
         <h1 class="mb-4">
-            <i class="fas fa-edit me-2" style="color: #2563eb;"></i>Editar Organização
+            Editar Organização
         </h1>
 
         <form asp-action="Edit" method="post">
             <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert">
-                <i class="fas fa-exclamation-circle me-2"></i>
+                
                 <span>Ocorreu um erro ao editar a organização. Verifique os campos abaixo.</span>
             </div>
 
@@ -21,7 +21,7 @@
             <!-- Nome -->
             <div class="form-group">
                 <label asp-for="Name" class="form-label">
-                    <i class="fas fa-heading me-2"></i>Nome da Organização
+                    Nome da Organização
                 </label>
                 <input asp-for="Name" class="form-control" placeholder="Ex: ONG Esperança" />
                 <span asp-validation-for="Name" class="text-danger"></span>
@@ -30,7 +30,7 @@
             <!-- Descrição -->
             <div class="form-group">
                 <label asp-for="Description" class="form-label">
-                    <i class="fas fa-align-left me-2"></i>Descrição
+                    Descrição
                 </label>
                 <textarea asp-for="Description" class="form-control" rows="5" placeholder="Descreva sua organização..."></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
@@ -39,10 +39,10 @@
             <!-- Botões de Ação -->
             <div class="form-actions">
                 <a asp-action="Index" class="btn btn-secondary">
-                    <i class="fas fa-times me-2"></i>Cancelar
+                    Cancelar
                 </a>
                 <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save me-2"></i>Salvar Alterações
+                    Salvar Alterações
                 </button>
             </div>
         </form>

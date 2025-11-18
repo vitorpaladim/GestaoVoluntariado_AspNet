@@ -8,12 +8,12 @@
 <div class="action-bar">
     <div>
         <h1 class="mb-0">
-            <i class="fas fa-building me-2" style="color: #2563eb;"></i>Organizações
+            Organizações
         </h1>
     </div>
     <div class="action-buttons">
         <a asp-action="Create" class="btn btn-primary">
-            <i class="fas fa-plus me-2"></i>Criar Nova Organização
+            Criar Nova Organização
         </a>
     </div>
 </div>
@@ -27,13 +27,13 @@
                 <thead>
                     <tr>
                         <th>
-                            <i class="fas fa-building me-2"></i>Nome
+                            Nome
                         </th>
                         <th>
-                            <i class="fas fa-align-left me-2"></i>Descrição
+                            Descrição
                         </th>
                         <th class="text-end">
-                            <i class="fas fa-cog me-2"></i>Ações
+                            Ações
                         </th>
                     </tr>
                 </thead>
@@ -58,10 +58,10 @@
                             </td>
                             <td class="text-end">
                                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
-                                    <i class="fas fa-edit me-1"></i>Editar
+                                    Editar
                                 </a>
                                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash me-1"></i>Deletar
+                                    Deletar
                                 </a>
                             </td>
                         </tr>
@@ -75,11 +75,11 @@ else
 {
     <!-- Empty State -->
     <div class="empty-state">
-        <i class="fas fa-inbox"></i>
+        
         <h4 class="mt-3">Nenhuma organização encontrada</h4>
         <p class="text-muted mb-4">Comece criando uma nova organização.</p>
         <a asp-action="Create" class="btn btn-primary">
-            <i class="fas fa-plus me-2"></i>Criar Primeira Organização
+            Criar Primeira Organização
         </a>
     </div>
 }

@@ -1,25 +1,36 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.EntityFrameworkCore;
-using GestaoVoluntariado.Data;
+﻿using GestaoVoluntariado.Data;
 using GestaoVoluntariado.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddRazorRuntimeCompilation(); // <-- LINHA CORRIGIDA PARA FORÇAR A COMPILAÇÃO DAS VIEWS
 
 // Add Entity Framework Core with SQL Server
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
-// Add Cookie Authentication
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     {
-        options.LoginPath = "/Account/Login";
-        options.LogoutPath = "/Account/Logout";
-        options.AccessDeniedPath = "/Account/Login";
-    });
+        options.Password.RequiredLength = 6;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireDigit = false;
+    })
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/Logout";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+});
 
 var app = builder.Build();
 
@@ -42,15 +53,49 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// Create database and seed data on startup
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var services = scope.ServiceProvider;
+    await SeedDatabaseAsync(services);
+}
+
+app.Run();
+
+static async Task SeedDatabaseAsync(IServiceProvider services)
+{
+    var dbContext = services.GetRequiredService<ApplicationDbContext>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
 
 
+    var roles = new[] { "Admin", "ONG", "Voluntario" };
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
 
-    // Seed Organizations
-    if (!dbContext.Organizations.Any())
+    var adminEmail = "admin@gestaovoluntariado.com";
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+    if (adminUser == null)
+    {
+        adminUser = new ApplicationUser
+        {
+            UserName = adminEmail,
+            Email = adminEmail,
+            EmailConfirmed = true
+        };
+
+        var result = await userManager.CreateAsync(adminUser, "Admin@123");
+        if (result.Succeeded)
+        {
+            await userManager.AddToRoleAsync(adminUser, "Admin");
+        }
+    }
+
+    if (!await dbContext.Organizations.AnyAsync())
     {
         var organizations = new List<Organization>
         {
@@ -77,13 +122,10 @@ using (var scope = app.Services.CreateScope())
         };
 
         dbContext.Organizations.AddRange(organizations);
-        dbContext.SaveChanges();
-
-        Console.WriteLine("✅ 4 Organizações criadas com sucesso!");
+        await dbContext.SaveChangesAsync();
     }
 
-    // Seed Opportunities
-    if (!dbContext.Opportunities.Any())
+    if (!await dbContext.Opportunities.AnyAsync())
     {
         var opportunities = new List<Opportunity>
         {
@@ -146,13 +188,10 @@ using (var scope = app.Services.CreateScope())
         };
 
         dbContext.Opportunities.AddRange(opportunities);
-        dbContext.SaveChanges();
-
-        Console.WriteLine("✅ 8 Oportunidades criadas com sucesso!");
+        await dbContext.SaveChangesAsync();
     }
 
-    // Seed Volunteers (opcional)
-    if (!dbContext.Volunteers.Any())
+    if (!await dbContext.Volunteers.AnyAsync())
     {
         var volunteers = new List<Volunteer>
         {
@@ -174,11 +213,8 @@ using (var scope = app.Services.CreateScope())
         };
 
         dbContext.Volunteers.AddRange(volunteers);
-        dbContext.SaveChanges();
+        await dbContext.SaveChangesAsync();
 
-        Console.WriteLine("✅ 3 Voluntários criados com sucesso!");
-
-        // Criar algumas inscrições de exemplo
         var registrations = new List<VolunteerOpportunity>
         {
             new VolunteerOpportunity
@@ -208,12 +244,6 @@ using (var scope = app.Services.CreateScope())
         };
 
         dbContext.VolunteerOpportunities.AddRange(registrations);
-        dbContext.SaveChanges();
-
-        Console.WriteLine("✅ 4 Inscrições criadas com sucesso!");
+        await dbContext.SaveChangesAsync();
     }
-
-    Console.WriteLine("🎉 Banco de dados inicializado com sucesso!");
 }
-
-app.Run();
