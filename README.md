@@ -6,7 +6,6 @@ Uma aplicação ASP.NET Core MVC totalmente funcional para gerenciar organizaç�
 
 - **ASP.NET Core 8.0** - Framework web moderno
 - **Entity Framework Core 8.0** - ORM para acesso a dados
-- **SQLite** - Banco de dados local (arquivo `gestaovoluntariado.db`)
 - **Razor Views** - Engine de templates
 - **Cookie Authentication** - Autenticação simples por cookie
 - **Bootstrap 5** - Framework CSS para UI responsiva
@@ -39,27 +38,6 @@ GestaoVoluntariado/
 └── GestaoVoluntariado.csproj # Arquivo do projeto
 ```
 
-## Funcionalidades Implementadas
-
-### 1. Organizações
-- ✅ Criar organização
-- ✅ Editar organização
-- ✅ Listar organizações
-
-### 2. Oportunidades de Voluntariado
-- ✅ Criar oportunidade vinculada a uma organização
-- ✅ Listar oportunidades
-- ✅ Ver detalhes da oportunidade
-
-### 3. Voluntários
-- ✅ Inscrição em oportunidade
-- ✅ Criação automática de voluntário se não existir
-- ✅ Listagem de voluntários inscritos
-
-### 4. Autenticação
-- ✅ Login simples por email
-- ✅ Logout
-- ✅ Autenticação por cookie
 
 ## Modelos de Dados
 
